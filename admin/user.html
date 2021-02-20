@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/iconfont.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="./libs/jquery-1.12.4.min.js"></script>
-
+    <script src="./libs/http.js"></script>
 </head>
 
 <body>
@@ -68,6 +68,32 @@
             </form>
         </div>
     </div>
+    <script>
+        $(function () {
+            $.ajax({
+                type: 'get',
+                url: BigNew.user_detail,
+                success: function (backData) {
+                    if (backData.code == 200) {
+                        for (let key in backData.data) {
+                            $('.' + key).val(backData.data[key])
+                        }
+                    }
+
+                }
+            })
+            //t头像预览
+            $('#exampleInputFile').on('change', function () {
+                //获取文件
+                console.log(this);
+                let file1 = this.files[0]
+                //创建图片路径
+                let url = URL.createObjectURL(file1)
+                //将图片路径给图片标签
+                $(this).prev('img').attr('src', url)
+            })
+        })
+    </script>
 </body>
 
 </html>
